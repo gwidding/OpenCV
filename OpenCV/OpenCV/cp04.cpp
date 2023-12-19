@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-/*
+
 void camera_in()
 {
 	VideoCapture cap(0);
@@ -32,9 +32,9 @@ void camera_in()
 			break;
 	}
 
-	destroyAllWindows();
+	//destroyAllWindows();
 }
-*/
+
 
 void video_in()
 {
@@ -217,11 +217,15 @@ void drawText2()
 	Point org((sizeImg.width - sizeText.width) / 2, (sizeImg.height + sizeText.height) / 2);
 	putText(img, text, org, fontFace, fontScale, Scalar(255, 0, 0), thickness);
 	rectangle(img, org, org + Point(sizeText.width, -sizeText.height), Scalar(255, 0, 0), 1);
+	// or 다른 ractangle 표현
+	rectangle(img, Rect(org.x, org.y - sizeText.height,
+						sizeText.width, sizeText.height),
+						Scalar(0, 0, 255), 2);
 
 	imshow("img", img);
 	waitKey(0);;
 
-	destroyAllWindows();
+	//destroyAllWindows();
 }
 
 
@@ -233,7 +237,29 @@ int main() {
 	//drawLines();
 	//drawPolys();
 	//drawText1();
-	drawText2();
+	//drawText2();
+
+	Mat img = imread("C:/work/img/lenna.bmp");
+
+	if (img.empty()) {
+		cerr << "Image load failed" << endl;
+		return -1;
+	}
+
+	namedWindow("img");
+	imshow("img", img);
+
+	while (true) {
+		int keycode = waitKey();
+
+		if (keycode == 'i' || keycode == 'I') {
+			img = ~img;
+			imshow("img", img);
+		}
+		else if (keycode == 27 || keycode == 'q' || keycode == 'Q') {
+			break;
+		}
+	}
 
 	return 0;
 }
