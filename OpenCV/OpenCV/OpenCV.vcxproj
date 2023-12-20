@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assignment1.cpp" />
     <ClCompile Include="ch03.cpp" />
     <ClCompile Include="ch04_2.cpp" />
     <ClCompile Include="ch04_3.cpp" />

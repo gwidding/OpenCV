@@ -1,3 +1,4 @@
+/*
 #include "opencv2/opencv.hpp"
 #include <iostream>
 
@@ -6,7 +7,7 @@ using namespace std;
 
 
 // 마우스 이벤트
-/*
+
 Mat img;
 Point ptOld;
 void on_mouse(int event, int x, int y, int flags, void*);
