@@ -143,7 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch03.cpp" />
-    <ClCompile Include="cp04.cpp" />
+    <ClCompile Include="ch04_2.cpp" />
+    <ClCompile Include="ch04_3.cpp" />
+    <ClCompile Include="ch05.cpp" />
+    <ClCompile Include="ch04.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
