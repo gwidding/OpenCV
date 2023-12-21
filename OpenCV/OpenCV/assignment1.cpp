@@ -1,3 +1,4 @@
+/*
 #include "opencv2/opencv.hpp"
 #include <iostream>
 #include <math.h>
@@ -11,12 +12,15 @@ void on_mouse(int event, int x, int y, int flags, void*);
 vector<Point> pts;
 bool eraseFlag = false;
 
-/* 기능 구현 사항 */
+//기능 구현 사항
+
 // 두 점 c 원
 // 두 점 r 직사각형
 // 3~ 여러 점 p 다각형
 // e 지우개
 // r 전체 지우개
+
+//<image src="https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/tt/2020/12/11/20201211_4715466_1607643740.jpg" />
 
 int main() {
 
@@ -68,7 +72,7 @@ int main() {
 
 void erase(Point pt) {
 	
-		double r = 20;
+		double r = 10;
 		circle(img, pt, r, Scalar(255, 255, 255), -1, LINE_AA);
 }
 
@@ -94,3 +98,4 @@ void on_mouse(int event, int x, int y, int flags, void*) {
 	}
 
 }
+*/
