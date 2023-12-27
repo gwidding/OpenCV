@@ -20,10 +20,15 @@ int main(void) {
 
 	Mat dst1, dst2, dst3, dst4;
 
-	add(src1, src2, dst1);
-	subtract(src1, src2, dst2);
-	addWeighted(src1, 0.5, src2, 0.5, 0, dst3);
-	absdiff(src1, src2, dst4);
+	//add(src1, src2, dst1);
+	//subtract(src1, src2, dst2);
+	//addWeighted(src1, 0.5, src2, 0.5, 0, dst3);
+	//absdiff(src1, src2, dst4);
+
+	bitwise_and(src1, src2, dst1);
+	bitwise_or(src1, src2, dst2);
+	bitwise_xor(src1, src2, dst3);
+	bitwise_not(src1, dst4);
 
 	imshow("dst1", dst1);
 	imshow("dst2", dst2);
@@ -32,11 +37,6 @@ int main(void) {
 	waitKey();
 
 	return 0;
-
-}
-
-#elif 1
-int main(void) {
 
 }
 
