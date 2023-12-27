@@ -31,7 +31,7 @@ int main() {
 */
 
 //웹캠 차영상 예제
-
+/*
 void camera_in() {
 
 	VideoCapture cap(0);
@@ -77,3 +77,4 @@ int main() {
 
 	return 0;
 }
+*/
