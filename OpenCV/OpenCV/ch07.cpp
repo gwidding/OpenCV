@@ -56,7 +56,7 @@ int main(void) {
 }
 
 
-#elif 1
+#elif 0
 // 블러링
 // 가우시안 필터
 void blurring_gaussian() {
@@ -143,5 +143,130 @@ int main() {
 	//unsharp_mask();
 	filter_bilateral();
 }
+
+
+#elif 1
+// 중간값 필터
+void filter_median() {
+	Mat src = imread("C:/work/img/lenna.bmp", IMREAD_GRAYSCALE);
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	int num = (int)(src.total() * 0.1);
+	for (int i = 0; i < num; i++) {
+		int x = rand() % src.cols;
+		int y = rand() % src.rows;
+		src.at<uchar>(y, x) = (i % 2) * 255;
+	}
+
+	Mat dst1;
+	GaussianBlur(src, dst1, Size(), 1);
+
+	Mat dst2;
+	medianBlur(src, dst2, 3);
+
+	imshow("src", src);
+	imshow("Gaussian", dst1);
+	imshow("Median", dst2);
+
+	waitKey();
+	destroyAllWindows();
+}
+
+// 어파인 변환
+void affine_transform() {
+	Mat src = imread("C:/work/img/tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Point2f srcPts[3], dstPts[3];
+	srcPts[0] = Point2f(0, 0);
+	srcPts[1] = Point2f(src.cols - 1, 0);
+	srcPts[2] = Point2f(src.cols - 1, src.rows - 1);
+	dstPts[0] = Point2f(50, 50);
+	dstPts[1] = Point2f(src.cols - 100, 100);
+	dstPts[2] = Point2f(src.cols - 50, src.rows - 50);
+
+	Mat M = getAffineTransform(srcPts, dstPts);
+
+	Mat dst;
+	warpAffine(src, dst, M, Size());
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	//transform
+	// 현재 사진 크기가 640, 480
+	vector<Point2f> src_pt = { Point2f(0, 0), Point2f(0, 480), Point2f(640, 480), Point2f(640, 0) };
+	vector<Point2f> dst_pt;
+
+	transform(src_pt, dst_pt, M);
+
+	cout << dst_pt << endl;
+
+	waitKey();
+	destroyAllWindows();
+}
+
+// 이동 변환
+void affine_translation() {
+	Mat src = imread("C:/work/img/tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+
+	Mat M = Mat_<double>({ 2, 3 }, { 1, 0, 150, 0, 1, 100 });
+
+	Mat dst;
+	warpAffine(src, dst, M, Size());
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}
+
+// 전단 변환
+void affine_shear() {
+	Mat src = imread("C:/work/img/tekapo.bmp");
+
+	if (src.empty()) {
+		cerr << "Image load failed!" << endl;
+		return;
+	}
+	double mx = 0.3;
+	//Mat M = Mat_<double>({ 2, 3 }, { 1, mx, 0, 0, 1, 0 });
+	Mat M = Mat_<double>({ 2, 3 }, { 1, 0, 0, mx, 1, 0 });
+
+	Mat dst;
+	//warpAffine(src, dst, M, Size(cvRound(src.cols + src.rows * mx), src.rows));
+	warpAffine(src, dst, M, Size(src.cols, (src.rows + src.cols * mx)));
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+
+}
+
+int main() {
+	//filter_median();
+	//affine_transform();
+	//affine_translation();
+	affine_shear();
+	return 0;
+}
+
+
 
 #endif
