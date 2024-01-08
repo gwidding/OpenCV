@@ -296,8 +296,6 @@ int main() {
 			break;
 		}
 	}
-	
-
 
 	return 0;
 }
@@ -362,7 +360,6 @@ void on_mouse(int event, int x, int y, int flags, void*) {
 		}
 	}
 }
-
 
 
 #endif

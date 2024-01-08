@@ -147,7 +147,7 @@ int main() {
 	return 0;
 }
 
-#elif 1
+#elif 0
 
 void enclose_beta() {
 	Mat src = imread("C:/work/img/beta2.bmp", IMREAD_GRAYSCALE);
@@ -157,7 +157,6 @@ void enclose_beta() {
 	}
 
 	vector<vector<Point>> contours;
-	//findContours(src, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
 	findContours(src, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 
 	Mat dst;
