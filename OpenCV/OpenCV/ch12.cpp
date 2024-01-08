@@ -50,9 +50,15 @@ void labeling_stats() {
 	for (int i = 1; i < cnt; i++) {
 		int* p = stats.ptr<int>(i);
 
-		if (p[4] < 20) continue;
+		if (p[4] < 20) {
+			rectangle(dst, Rect(p[0], p[1], p[2], p[3]), Scalar(0, 0, 255), 2);
+			continue;
 
-		rectangle(dst, Rect(p[0], p[1], p[2], p[3]), Scalar(0, 255, 255), 2);
+		}
+		String text = format("%2d", i);
+		putText(dst, text, Point(p[0], p[1]), FONT_HERSHEY_COMPLEX, 0.5, Scalar(150, 200, 150), 1);
+
+		rectangle(dst, Rect(p[0], p[1], p[2], p[3]), Scalar(0, 255, 255), 2);		
 	}
 
 	imshow("src", src);
