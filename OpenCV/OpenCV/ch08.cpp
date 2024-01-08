@@ -253,7 +253,7 @@ void on_mouse(int event, int x, int y, int flags, void*) {
 }
 
 
-#elif 1
+#elif 0
 
 // 마우스 이벤트 받아야 하니 전역변수
 Mat src, sample;
