@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-#if 1
+#if 0
 // 레이블링의 이해
 
 void labeling_basic() {
@@ -72,6 +72,126 @@ int main() {
 	//labeling_basic();
 	labeling_stats();
 
+	return 0;
+}
+
+#elif 0
+
+// 계층 구조 없는 외곽선 검출과 그리기
+
+void contours_basic() {
+	Mat src = imread("C:/work/img/contours.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "이미지 로드 실패" << endl;
+		return;
+	}
+
+	vector<vector<Point>> contours;
+	findContours(src, contours, RETR_LIST, CHAIN_APPROX_NONE);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (int i = 0; i < contours.size(); i++) {
+		Scalar c(rand() & 255, rand() & 255, rand() & 255);
+		drawContours(dst, contours, i, c, 2);
+
+		String text = format("%2d", i);
+		putText(dst, text, Point(contours[i][0].x, contours[i][0].y), FONT_HERSHEY_COMPLEX, 0.5, Scalar(150, 200, 150), 1);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey();
+	destroyAllWindows();
+}
+
+// 계층 구조 사용하는 외곽선 검출과 그리기
+
+void contours_hier() {
+	Mat src = imread("C:/work/img/contours.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "이미지 로드 실패" << endl;
+		return;
+	}
+
+	vector<vector<Point>> contours;
+	vector<Vec4i>hierarchy;
+	findContours(src, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (int idx = 0; idx >= 0; idx = hierarchy[idx][0]) {
+		Scalar c(rand() & 255, rand() & 255, rand() & 255);
+		drawContours(dst, contours, idx, c, -1, LINE_8, hierarchy);
+
+		cout << idx << ": " << hierarchy[idx] << endl;
+
+		String text = format("%2d", idx);
+		putText(dst, text, Point(contours[idx][0].x, contours[idx][0].y), FONT_HERSHEY_COMPLEX, 0.5, Scalar(150, 200, 150), 1);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	destroyAllWindows();
+}
+
+int main() {
+	//contours_basic();
+	contours_hier();
+
+	return 0;
+}
+
+#elif 1
+
+void enclose_beta() {
+	Mat src = imread("C:/work/img/beta2.bmp", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "이미지 로드 실패" << endl;
+		return;
+	}
+
+	vector<vector<Point>> contours;
+	//findContours(src, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
+	findContours(src, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+	Point2f center;
+	float r;
+		
+	// 최소 사각형
+	rectangle(dst, boundingRect(contours[0]), Scalar(0, 0, 255), 2);
+	// 최소 원
+	minEnclosingCircle(contours[0], center, r);
+	circle(dst, center, r, Scalar(255, 255, 0));
+	// 회전된 최소 사각형
+
+	RotatedRect rotatedRect = minAreaRect(contours[0]);
+	Point2f pp[4];
+	rotatedRect.points(pp);
+
+	line(dst, pp[0], pp[1], Scalar(255, 0, 255), 1);
+	line(dst, pp[1], pp[2], Scalar(255, 0, 255), 1);
+	line(dst, pp[2], pp[3], Scalar(255, 0, 255), 1);
+	line(dst, pp[3], pp[0], Scalar(255, 0, 255), 1);
+
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	destroyAllWindows();
+}
+
+int main() {
+
+	enclose_beta();
 	return 0;
 }
 
