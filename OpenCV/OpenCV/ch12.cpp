@@ -194,4 +194,74 @@ int main() {
 	return 0;
 }
 
+#elif 0
+
+// 곡선의 길이, 면적 구하기
+
+int main() {
+	vector<Point> pts = { Point(0, 0), Point(10, 0), Point(0, 10) };
+
+	cout << "len = " << arcLength(pts, true) << endl;
+	cout << "area = " << contourArea(pts) << endl;
+}
+
+#elif 0
+
+// 삼각형, 사각형, 원 판단하기
+
+void setLabel(Mat& img, const vector<Point>& pts, const String& label) {
+	Rect rc = boundingRect(pts);
+	rectangle(img, rc, Scalar(0, 0, 255), 1);
+	putText(img, label, rc.tl(), FONT_HERSHEY_PLAIN, 1, Scalar(0, 0, 255));
+}
+
+int main(int argc, char* argv[]) {
+	Mat img = imread("C:/work/img/polygon.bmp", IMREAD_COLOR);
+	if (img.empty()) {
+		cerr << "이미지 로드 실패" << endl;
+		return -1;
+	}
+
+	Mat gray;
+	cvtColor(img, gray, COLOR_BGR2GRAY);
+
+	Mat bin;
+	threshold(gray, bin, 200, 255, THRESH_BINARY_INV | THRESH_OTSU);
+
+	vector<vector<Point>> contours;
+	findContours(bin, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+
+	for (vector<Point> pts : contours) {
+		if (contourArea(pts) < 400)
+			continue;
+
+		vector<Point> approx;
+		approxPolyDP(pts, approx, arcLength(pts, true) * 0.02, true);
+
+		int vtc = (int)approx.size();
+
+		if (vtc == 3) {
+			setLabel(img, pts, "TRI");
+		}
+		else if (vtc == 4) {
+			setLabel(img, pts, "RECT");
+		}
+		else if (vtc > 4) {
+			double len = arcLength(pts, true);
+			double area = contourArea(pts);
+			double ratio = 4. * CV_PI * area / (len * len);
+
+			if (ratio > 0.8) {
+				setLabel(img, pts, "CIR");
+			}
+		}
+	}
+
+	imshow("img", img);
+
+	waitKey(0);
+	return 0;
+
+}
+
 #endif
