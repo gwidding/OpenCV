@@ -20,8 +20,6 @@ bool eraseFlag = false;
 // e 지우개
 // r 전체 지우개
 
-//<image src="https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/tt/2020/12/11/20201211_4715466_1607643740.jpg" />
-
 int main() {
 
 	namedWindow("img");
@@ -56,6 +54,7 @@ int main() {
 		}
 		else if (keycode == 'q' || keycode == 'Q') {
 			img = Scalar(255, 255, 255);
+			pts.clear();
 		}
 
 		imshow("img", img);
