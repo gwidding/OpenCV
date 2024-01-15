@@ -120,11 +120,42 @@ void hough_line_segments() {
 	destroyAllWindows();
 }
 
+// 허프 원 검출 예제
+void hough_circles() {
+	Mat src = imread("C:/work/img/coin.jpg", IMREAD_GRAYSCALE);
+	if (src.empty()) {
+		cerr << "이미지 로딩 실패" << endl;
+		return;
+	}
+
+	Mat blurred;
+	blur(src, blurred, Size(3, 3));
+
+	vector<Vec3f> circles;
+	HoughCircles(blurred, circles, HOUGH_GRADIENT, 1, 80, 100, 30, 10, 70);
+
+	Mat dst;
+	cvtColor(src, dst, COLOR_GRAY2BGR);
+
+	for (Vec3f c : circles) {
+		Point center(cvRound(c[0]), cvRound(c[1]));
+		int radius = cvRound(c[2]);
+		circle(dst, center, radius, Scalar(0, 0, 255), 2, LINE_AA);
+	}
+
+	imshow("src", src);
+	imshow("dst", dst);
+
+	waitKey(0);
+	destroyAllWindows();
+}
+
 int main() {
 	//sobel_edge();
 	//canny_edge();
 	//hough_lines();
-	hough_line_segments();
+	//hough_line_segments();
+	hough_circles();
 }
 
 
