@@ -1,4 +1,3 @@
-/*
 #include "opencv2/opencv.hpp"
 #include <iostream>
 #include <math.h>
@@ -12,13 +11,13 @@ void on_mouse(int event, int x, int y, int flags, void*);
 vector<Point> pts;
 bool eraseFlag = false;
 
-//±â´É ±¸Çö »çÇ×
+//ê¸°ëŠ¥ êµ¬í˜„ ì‚¬í•­
 
-// µÎ Á¡ c ¿ø
-// µÎ Á¡ r Á÷»ç°¢Çü
-// 3~ ¿©·¯ Á¡ p ´Ù°¢Çü
-// e Áö¿ì°³
-// r ÀüÃ¼ Áö¿ì°³
+// ë‘ ì  c ì›
+// ë‘ ì  r ì§ì‚¬ê°í˜•
+// 3~ ì—¬ëŸ¬ ì  p ë‹¤ê°í˜•
+// e ì§€ìš°ê°œ
+// r ì „ì²´ ì§€ìš°ê°œ
 
 int main() {
 
@@ -82,7 +81,7 @@ void on_mouse(int event, int x, int y, int flags, void*) {
 	case EVENT_LBUTTONDOWN :
 		ptOld = Point(x, y);
 		pts.push_back(ptOld);
-		cout << "ÁÂÅ¬¸¯ ÁÂÇ¥ : " << x << ", " << y << endl;
+		cout << "ì¢Œí´ë¦­ ì¢Œí‘œ : " << x << ", " << y << endl;
 		break;
 
 	case EVENT_MOUSEMOVE:
@@ -97,4 +96,3 @@ void on_mouse(int event, int x, int y, int flags, void*) {
 	}
 
 }
-*/
