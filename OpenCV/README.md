@@ -4,7 +4,7 @@
 - 도형 그림판
 
 
-## 카드사진 투시 변환
+# 카드사진 투시 변환
 
 ### 제작 이유
 투시 변환 예제를 일상생활에서도 흔하게 사용할 수 있도록, 정해진 실행 방법에서 벗어나 일반적인 상황에서도 실행할 수 있도록 개선하였다.
@@ -34,12 +34,13 @@
 
   => 클릭한 네 점의 y좌표를 기준으로 정렬하여, 시계방향으로 점 재배치
 
-  gif 자료 필요
+  ![카드 투시변환 실행영상](https://github.com/gwidding/OpenCV/assets/135992700/f06d3b6b-3be6-4b15-a8cb-50ec7178b4ff)
+
 
 - [카드사진 투시 변환 source code](https://github.com/gwidding/OpenCV/blob/master/OpenCV/OpenCV/main.cpp)  
 
-    
-## 도형 그림판  
+
+# 도형 그림판  
 
 ### 제작 이유
 객체 인식나 ROI 등 Vision에서 중요한 도형 관련 함수 학습과 마우스, 키보드 이벤트 처리를 학습하고자 구현하였다.  
@@ -56,7 +57,7 @@
 - 1, 2번(원, 직사각형)에서 여러 점을 찍더라도 마지막 두 점만 고려
 - 직사각형을 위해 찍는 두 점은 top-left, 가로, 세로 길이만 반영
 
-- gif 자료 필요
+![도형그림판 실행영상](https://github.com/gwidding/OpenCV/assets/135992700/ba909a8a-c0b4-4172-87c8-b21e95cd9510)
 
 [도형 그림판 source code](https://github.com/gwidding/OpenCV/blob/master/OpenCV/OpenCV/assignment1.cpp)
   
